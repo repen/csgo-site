@@ -28,7 +28,6 @@ def error_404(error):
 
 
 def app_run():
-    PRODUCTION_WORK = True
     if PRODUCTION_WORK:
         serve(app, host='0.0.0.0', port=5000)
     else:
