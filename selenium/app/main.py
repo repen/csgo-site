@@ -27,10 +27,11 @@ import undetected_chromedriver.v2 as uc
 options = uc.ChromeOptions()
 
 # setting profile
-options.user_data_dir = "/tmp"
+options.user_data_dir = "/tmp/chro"
 
 # another way to set profile is the below (which takes precedence if both variants are used
-options.add_argument('--user-data-dir=/tmp')
+options.add_argument('--user-data-dir=/tmp/chro')
+options.add_argument('--proxy-server=213.166.73.30:9273 ')
 options.add_argument('--headless')
 
 # just some options passing in to skip annoying popups
@@ -132,7 +133,7 @@ def main():
 
         time.sleep(15)
 
-        scene(driver)
+        # scene(driver)
 
         driver.get(URL)
         log_content.debug("Checked length page:  {}".format(len(driver.page_source)))
