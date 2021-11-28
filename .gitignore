@@ -4,3 +4,4 @@ venv
 *.py[cod]
 *$py.class
 chromedriver
+selenium/app/logs/*.log

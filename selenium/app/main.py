@@ -39,6 +39,7 @@ driver = uc.Chrome(options=options)
 driver.maximize_window()
 
 log_content = log("MAIN")
+log_html = log("HTML", "html.log")
 URL = SITE
 
 log_content.info("Start script")
@@ -129,7 +130,7 @@ def main():
         log_content.debug("open page {}".format(URL))
         driver.get(URL)
         log_content.info("Waiting 15 sec")
-
+        log_html.debug(driver.page_source)
         time.sleep(15)
 
         scene(driver)
