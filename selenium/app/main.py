@@ -130,8 +130,8 @@ def main():
         log_content.debug("open page {}".format(URL))
         driver.get(URL)
         log_content.info("Waiting 15 sec")
-        log_html.debug(driver.page_source)
         time.sleep(15)
+        log_html.debug(driver.page_source)
 
         scene(driver)
 
