@@ -18,6 +18,7 @@ import os, time
 from Globals import LOGIN, PASSWORD, SITE, SHARE_DIR
 from itertools import count
 from Model import HtmlData, ResultPage
+from selenium.webdriver.common.keys import Keys
 # from selenium import webdriver
 # from selenium.webdriver.chrome.options import Options
 from tools import log
@@ -123,13 +124,16 @@ def main():
     # driver = init_driver()
 
     with driver:
+        driver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
         res = driver.get('https://betscsgo.in')  # known url using cloudflare's "under attack mode"
+        time.sleep(2)
         log_content.info(res)
         log_content.debug("starting chrome")
         log_content.debug("open page {}".format(URL))
         driver.get(URL)
         log_content.info("Waiting 15 sec")
 
+        driver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
         time.sleep(15)
 
         scene(driver)
