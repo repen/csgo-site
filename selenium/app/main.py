@@ -31,7 +31,6 @@ options.user_data_dir = "/tmp/chro"
 
 # another way to set profile is the below (which takes precedence if both variants are used
 options.add_argument('--user-data-dir=/tmp/chro')
-options.add_argument('--proxy-server=213.166.73.30:9273 ')
 options.add_argument('--headless')
 
 # just some options passing in to skip annoying popups
@@ -124,8 +123,8 @@ def main():
     # driver = init_driver()
 
     with driver:
-        driver.get('https://betscsgo.in')  # known url using cloudflare's "under attack mode"
-
+        res = driver.get('https://betscsgo.in')  # known url using cloudflare's "under attack mode"
+        log_content.info(res)
         log_content.debug("starting chrome")
         log_content.debug("open page {}".format(URL))
         driver.get(URL)
@@ -133,7 +132,7 @@ def main():
 
         time.sleep(15)
 
-        # scene(driver)
+        scene(driver)
 
         driver.get(URL)
         log_content.debug("Checked length page:  {}".format(len(driver.page_source)))
