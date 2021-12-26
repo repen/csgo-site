@@ -61,6 +61,7 @@ def get_fixtures(html):
     # CSS_SELECTOR = ".sys-games-next .bet-item.sys-betting.bet_coming[data-id], .bet-item.sys-betting.bet-stream"
     soup = BeautifulSoup(html, "html.parser")
     fixtures = soup.select(CSS_SELECTOR)
+    log.debug(f"Total events {len(fixtures)}")
     return fixtures
 
 
