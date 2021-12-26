@@ -89,7 +89,7 @@ def work(driver, url):
     log_content.debug("End Job")
 
 def work_for_result_page(driver, m_id):
-    url = "https://betscsgo.in/match/{}".format( m_id )
+    url = f"{SITE}/match/{m_id}"
     log_content.debug("Get %s", url)
     driver.get(url)
     time.sleep(7)
@@ -122,7 +122,7 @@ def check_task():
 
 def prepare(driver):
     # driver = webdriver.Chrome()
-    driver.execute_script("window.open('https://betscsgo.in/','_blank');")
+    driver.execute_script(f"window.open('{SITE}/','_blank');")
     time.sleep(10)
     driver.switch_to.window( driver.window_handles[0] )
     driver.close()
