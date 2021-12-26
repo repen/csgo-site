@@ -56,9 +56,9 @@ search_fixture = dsearch_fixture()
 
 
 def get_fixtures(html):
-    # CSS_SELECTOR = ".sys-games-next .bet-item.sys-betting.bet_coming[data-id]" no live
-    # live and wait
-    CSS_SELECTOR = ".sys-games-next .bet-item.sys-betting.bet_coming[data-id], .bet-item.sys-betting.bet-stream"
+    # get a live and offline fixtures
+    CSS_SELECTOR = ".bet-items .bet-item:not(.bet-winner-left)"
+    # CSS_SELECTOR = ".sys-games-next .bet-item.sys-betting.bet_coming[data-id], .bet-item.sys-betting.bet-stream"
     soup = BeautifulSoup(html, "html.parser")
     fixtures = soup.select(CSS_SELECTOR)
     return fixtures
@@ -66,19 +66,24 @@ def get_fixtures(html):
 
 def extract_markets(soup, timestamp):
     collect = []
-    events = soup.select("div.bet-events__item")
+    # events = soup.select("div.bet-events__item")
+    events = soup.select("[data-parent-id], [data-id]:not(.sys-index-live-bets)")
     for event in events:
         # eid = int(event.select_one("div.bet-event.sys-betting.bet_coming")["data-id"])
-        market_name = event.select_one(".bet-event__text-inside-part").text.strip()
+        if "data-parent-id" in event.attrs.keys():
+            c_id = event["data-parent-id"].strip()
+        else:
+            c_id = event["data-id"].strip()
+
+        try:
+            market_name = event.select_one(".bet-event__text-inside-part").text.strip()
+        except AttributeError:
+            log.warning(f"Empty market {c_id}")
+            continue
+
         left_val  = int(event.select_one("div.bet-currency.sys-stat-abs-1").text.strip().replace(" ", ""))
         right_val = int(event.select_one("div.bet-currency.sys-stat-abs-2").text.strip().replace(" ", ""))
 
-        try:
-            c_id = event.select_one("div.bet-event[data-id]")["data-id"].strip()
-        except TypeError:
-            log.error(f"TypeError: {str(event)}", exc_info=True)
-            continue
-            # breakpoint()
 
         collect.append( IMarket(
             m_id=int(soup["data-id"]),
