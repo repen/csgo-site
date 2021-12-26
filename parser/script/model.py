@@ -23,9 +23,9 @@ class Fixture(Model):
         database = db
 
 class Market(Model):
-    m_id = IntegerField()
+    m_id = IntegerField(index=True)
     c_id = IntegerField()
-    m_snapshot_time= IntegerField()
+    m_snapshot_time= IntegerField(index=True)
     left_value = IntegerField()
     name = CharField()
     right_value = IntegerField()
@@ -43,8 +43,8 @@ class Result(Model):
 
 
 class Koef(Model):
-    m_id = IntegerField()
-    m_snapshot_time= IntegerField()
+    m_id = IntegerField(index=True)
+    m_snapshot_time= IntegerField(index=True)
 
     left_value  = CharField()
     market_name = CharField(default="Main")
